@@ -1,11 +1,12 @@
-from qwen_vl_utils import process_vision_info
-from PIL import Image
-
-import pdfplumber
 import re
 
+import pdfplumber
+from PIL import Image
+from qwen_vl_utils import process_vision_info
+
+
 def get_txt_from_doc(image, prompt, model, processor, device):
-    '''Extracts text from an image (one page of a PDF) based on a user prompt using a specified model.
+    """Extracts text from an image (one page of a PDF) based on a user prompt using a specified model.
 
     Args:
         image: A single image extracted from a PDF.
@@ -16,7 +17,7 @@ def get_txt_from_doc(image, prompt, model, processor, device):
 
     Returns:
         A list of extracted and cleaned text strings.
-    '''
+    """
     messages = [
         {
             "role": "user",
@@ -55,14 +56,14 @@ def get_txt_from_doc(image, prompt, model, processor, device):
     )
 
     # Remove extra spaces
-    output_text = [text.strip() for text in output_text]  
+    output_text = [text.strip() for text in output_text]
 
     return output_text
 
 
 # util.py
 def pdf_to_images(pdf_path, target_size=(760, 1024), resolution=225):
-    '''Converts a PDF file into a list of images, resizing them to the specified dimensions.
+    """Converts a PDF file into a list of images, resizing them to the specified dimensions.
 
     Args:
         pdf_path: Path to the PDF file.
@@ -71,7 +72,7 @@ def pdf_to_images(pdf_path, target_size=(760, 1024), resolution=225):
 
     Returns:
         A list of PIL.Image objects representing the pages of the PDF.
-    '''
+    """
     images = []
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
@@ -83,24 +84,24 @@ def pdf_to_images(pdf_path, target_size=(760, 1024), resolution=225):
 
 
 def clean_text(text):
-    '''Cleans and formats raw text by removing unnecessary characters, lines, and spaces.
+    """Cleans and formats raw text by removing unnecessary characters, lines, and spaces.
 
     Args:
         text: The raw text to be cleaned.
 
     Returns:
         The cleaned and formatted text.
-    '''
+    """
     # Remove bold text and headings (asterisks and hashes)
-    text = re.sub(r'[*#]', '', text)
+    text = re.sub(r"[*#]", "", text)
 
     # Remove separator lines (e.g., "---")
-    text = re.sub(r'^-+$', '', text, flags=re.MULTILINE)
+    text = re.sub(r"^-+$", "", text, flags=re.MULTILINE)
 
     # Remove leading and trailing whitespace
-    text = re.sub(r'^[ \t]+|[ \t]+$', '', text, flags=re.MULTILINE)
+    text = re.sub(r"^[ \t]+|[ \t]+$", "", text, flags=re.MULTILINE)
 
     # Remove extra blank lines
-    text = re.sub(r'\n+', '\n', text).strip()
+    text = re.sub(r"\n+", "\n", text).strip()
 
     return text

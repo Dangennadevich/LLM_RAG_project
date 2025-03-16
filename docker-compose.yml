@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  service:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+      - ELASTICSEARCH_PORT_INDEX=documents
+      - EMB_DIMS=1024
+      - ELASTICSEARCH_PASSWORD=admin
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=admin
+    ports:
+      - "9200:9200"
+      - "9300:9300"
