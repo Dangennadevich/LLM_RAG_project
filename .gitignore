@@ -3,3 +3,6 @@ notebooks/convert_pdf2text_colab_version.ipynb
 notebooks/text2embed_example.ipynb
 dict_all_embed.pkl
 rag-system/
+convert_pdf2text_colab_version.ipynb
+/recap
+text2embed_example.ipynb
