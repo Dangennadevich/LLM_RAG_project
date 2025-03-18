@@ -8,7 +8,7 @@ services:
       - elasticsearch
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
+    image: elasticsearch:7.17.10
     environment:
       - discovery.type=single-node
       - ELASTIC_PASSWORD=admin
