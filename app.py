@@ -41,7 +41,7 @@ def answer_question():
     papers = []
     if results:
         for item in results:
-            context += item[0]
+            context += item[0] + "\n"
             papers.append(item[1])
         answer = get_answer(question, context=context)
     else:
@@ -50,9 +50,9 @@ def answer_question():
         jsonify(
             {
                 "question": question,
-                "context": None,
+                "context": context,
                 "answer": answer,
-                "used_papers": papers,
+                "used_papers": list(set(papers)),
             }
         ),
         200,
@@ -60,4 +60,4 @@ def answer_question():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8070)
+    app.run(host="0.0.0.0", port=8080)
