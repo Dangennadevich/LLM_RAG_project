@@ -6,7 +6,7 @@ authors = [
     {name = "Nikita Koshelev",email = "koshelev.nd@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
     "elasticsearch (>=8.17.2,<9.0.0)",
     "numpy (>=2.2.3,<3.0.0)",
@@ -16,7 +16,7 @@ dependencies = [
     "accelerate (>=1.5.2,<2.0.0)",
     "transformers (>=4.49.0,<5.0.0)",
     "minio (>=7.2.15,<8.0.0)",
-    "pre-commit (>=4.1.0,<5.0.0)"
+    "pre-commit (>=4.1.0,<5.0.0)",
 ]
 
 

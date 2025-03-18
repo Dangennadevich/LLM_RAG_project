@@ -9,6 +9,12 @@ DIMS = os.getenv("EMB_DIMS")
 indexMapping = {
     "properties": {
         "text": {"type": "text"},
-        "embedding": {"type": "dense_vector", "dims": DIMS, "index": True},
+        "title": {"type": "text"},
+        "embedding": {
+            "type": "dense_vector",
+            "dims": DIMS,
+            "index": True,
+            "similarity": "cosine",
+        },
     }
 }
