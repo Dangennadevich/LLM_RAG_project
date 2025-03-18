@@ -1,2 +1,3 @@
 .env
 convert_pdf2text_colab_version.ipynb
+text2embed_example.ipynb
