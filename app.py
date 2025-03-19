@@ -3,12 +3,13 @@ from typing import Optional
 import dotenv
 from flask import Flask, jsonify, request
 
-from db.run_db import initialize_es, search_relevant
+from db.run_db import initialize_es, search_relevant, create_index
 from inference.encoder import Encoder
 from inference.model import Model
 
 
 es = initialize_es()
+#create_index(es)
 
 dotenv.load_dotenv()
 app = Flask(__name__)
@@ -34,6 +35,8 @@ def answer_question():
     if not isinstance(question, str):
         return jsonify({"error": "'question' должен быть строкой"}), 400
 
+    use_context = bool(data["use_context"])
+
     embedding = Encoder.encode(question)
 
     results = search_relevant(es, embedding)
@@ -43,7 +46,7 @@ def answer_question():
         for item in results:
             context += item[0] + "\n"
             papers.append(item[1])
-        answer = get_answer(question, context=context)
+        answer = get_answer(question, context=context if use_context else None)
     else:
         answer = get_answer(question, context=None)
     return (

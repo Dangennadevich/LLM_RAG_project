@@ -30,7 +30,7 @@ def initialize_es() -> Elasticsearch:
 
     try:
         es = Elasticsearch(
-            hosts=["http://elasticsearch:9200"], basic_auth=("elastic", "admin")
+            hosts=["http://localhost:9200"], basic_auth=("elastic", "admin")
         )
         time.sleep(10)
         print(es.info())

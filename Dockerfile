@@ -1,7 +1,8 @@
 FROM nvidia/cuda:12.1.0-devel-ubuntu22.04
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Установка зависимостей, необходимых для Python и сборки
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     curl \
     build-essential \
@@ -27,22 +28,21 @@ ENV PATH="/root/.local/bin:$PATH"
 # Обязательно: задаём CUDA_HOME, чтобы flash_attn находил nvcc
 ENV CUDA_HOME=/usr/local/cuda
 
-
 WORKDIR /app
 
-# Копируем файлы конфигурации Poetry
 COPY pyproject.toml poetry.lock ./
 
-# Устанавливаем зависимости проекта с помощью Poetry (без создания виртуального окружения)
-RUN poetry config virtualenvs.create false && \
+# Устанавливаем зависимости проекта с помощью Poetry
+RUN poetry config virtualenvs.in-project true && \
     poetry install --no-interaction --no-ansi --no-root
+RUN poetry run pip install --upgrade pip setuptools wheel
 
 # Устанавливаем flash_attn с ключом --no-build-isolation,
 # чтобы сборка использовала nvcc из CUDA-образа
-RUN pip install flash_attn --no-build-isolation
+RUN poetry run pip install flash_attn --no-build-isolation
 
 # Устанавливаем FlagEmbedding из Git
-RUN pip install git+https://github.com/FlagOpen/FlagEmbedding.git
+RUN poetry run pip install git+https://github.com/FlagOpen/FlagEmbedding.git
 
 # Копируем исходный код приложения
 COPY . .
@@ -50,4 +50,4 @@ COPY inference/* inference/
 
 EXPOSE 8080
 
-CMD ["python3", "app.py"]
+CMD ["poetry", "run", "python3", "app.py"]
