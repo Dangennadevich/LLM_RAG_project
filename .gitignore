@@ -2,3 +2,4 @@
 notebooks/convert_pdf2text_colab_version.ipynb
 notebooks/text2embed_example.ipynb
 dict_all_embed.pkl
+rag-system/
