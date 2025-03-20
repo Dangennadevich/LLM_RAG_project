@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+
+  elasticsearch:
+    image: elasticsearch:7.17.10
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=admin
+    ports:
+      - "9200:9200"
+      - "9300:9300"

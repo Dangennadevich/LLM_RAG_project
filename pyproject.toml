@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "llm-rag-project"
+version = "0.1.0"
+description = ""
+authors = ["Nikita Koshelev <koshelev.nd@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10"  # requires-python перемещен сюда
+elasticsearch = "^8.17.2"
+numpy = "^2.2.3"
+flask = "^3.1.0"
+torch = "^2.6.0"
+accelerate = "^1.5.2"
+transformers = "^4.49.0"
+minio = "^7.2.15"
+pre-commit = "^4.1.0"
+dotenv = "^0.9.9"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 90
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+line_length = 90
+lines_after_imports = 2
+
+[tool.flake8]
+max-line-length = 120
+
+[tool.nbqa.config]
+black = "pyproject.toml"
+isort = "pyproject.toml"
+flake8 = "setup.cfg"
