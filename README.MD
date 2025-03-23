@@ -1,11 +1,15 @@
-# Проект по созданию QA-LLM-бота на основе RAG системы для ответов на вопросы по научным статьям с arxiv.org
+<h1 align="center">Курс "Распределенные системы"</h1>
 
-**convert_pdf2txt_example.ipynb**: Сравнение алгоритмов конвертации, а так же пример обработки PDF и работы с S3
+<h3 align="center"> Проект по созданию QA-LLM-бота на основе RAG системы для ответов на вопросы по научным статьям с arxiv.org</h3>
 
-**utils.py**: Функции для работы системы и все что не хочится хранить в основном блоке кода
+Презентация проекта: **RAG-SYSTEM.pdf**
 
-Возможно понадобится для твоего окружения:
+В рамках проекта создана RAG система, позволяющая получить ответ на вопросы связанные с научными статями. Замерен прирост качества в сравнении с базовой моделью без контекста. Произведен one-click-deployment при помощи hugging face space 
 
-<code> pip install git+https://github.com/huggingface/transformers accelerate </code>
+<h4 align="left"> Запуск сервиса производился на NVIDIA T4 16GB: </h4>
 
-<code> pip install minio load-dotenv pdfplumber qwen-vl-utils[decord]==0.0.8 </code>
+1) Перед запуском проекта необходимо обновление IP-адреса в коде
+
+2) docker-compose up: поднимаем elastiscreach
+
+3) python app.py: поднимаем сервис с LLM и RAG системой
